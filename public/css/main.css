@@ -1,0 +1,52 @@
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0;
+}
+
+.flash {
+	display: flex;
+	/* height: 40px; */
+	border-radius: 7px;
+	align-items: center;
+	margin: 10px 0;
+	padding: 0 10px;
+	color: white;
+}
+
+.flash-success {
+	background-color: rgba(121, 190, 37, 0.9);
+}
+
+.flash-error {
+	background-color: rgba(255, 0, 0, 0.9);
+}
+
+.orange {
+	background-color: orange;
+}
+
+.green {
+	background-color: green;
+}
+
+.cyan {
+	background-color: cyan;
+}
+
+.red {
+	background-color: red;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.blue {
+	background-color: lightblue;
+}
+
+.post {
+	color: white;
+}

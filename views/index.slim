@@ -1,0 +1,17 @@
+header
+    a.navitem href="/channels" Channels
+    a.navitem href="/" = @city
+    a.navitem href="/me" = @karma
+
+div.posts
+    -for post in @posts
+        div class=("post #{@colors.sample}")
+            div.info
+                p =post[3]
+            div.content
+                div.text
+                    =post[1]
+                div.rating
+                    =post[4]
+            div.options
+                p #{post[-1]} comments
