@@ -3,6 +3,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	margin: 0;
+	max-width: 100%;
 }
 
 .flash {
@@ -47,6 +48,41 @@ body {
 	background-color: lightblue;
 }
 
+
+header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: calc(100vw - 15px);
+	max-width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.posts {
+	width: 100vw;
+	box-sizing: border-box;
+}
+
 .post {
 	color: white;
+	margin: 5px 0;
+	padding: 10px 15px;
+}
+
+.content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+}
+
+.rating {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.5em;
 }

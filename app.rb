@@ -8,6 +8,27 @@ class App < Sinatra::Base
 		def display(file)
 			slim file
 		end
+
+		def time_ago_in_words(time)
+			# format = "%T"
+			# parsedTime = DateTime.strptime(time, format)
+			timeAgo = (DateTime.now.to_time - DateTime.parse(time).to_time)
+			p timeAgo
+			# p timeAgo
+			if timeAgo / 86400 < 1
+				if timeAgo / 3600 < 1
+					if timeAgo / 60 < 1
+						return "#{timeAgo.to_i}s"
+					else
+						return "#{(timeAgo / 60).to_i}min"
+					end
+				else
+					return "#{(timeAgo / 3600).to_i}h"
+				end
+			else
+				return "#{(timeAgo / 86400).to_i}d"
+			end
+		end
 	end
 	
 	before do
@@ -34,16 +55,16 @@ class App < Sinatra::Base
 		end
 
 		@title = "Yodel"
-		@city = "Göteborg"
+		# @city = "Göteborg"
 		@karma = @user[4]
 
 		@colors = ["orange", "green", "cyan", "red", "yellow", "blue"]
 		@posts = db.execute("SELECT * FROM posts ORDER BY id DESC")
 
-		for post in @posts
-			comments = db.execute("SELECT COUNT(id) FROM comments WHERE post = ?", post.first).first
-			@posts.push(comments)
-		end
+		# for post in @posts
+		# 	comments = db.execute("SELECT COUNT(id) FROM comments WHERE post = ?", post.first).first
+		# 	@posts.push(comments)
+		# end
 
 		slim :index
 	end
