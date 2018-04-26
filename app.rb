@@ -10,23 +10,19 @@ class App < Sinatra::Base
 		end
 
 		def time_ago_in_words(time)
-			# format = "%T"
-			# parsedTime = DateTime.strptime(time, format)
 			timeAgo = (DateTime.now.to_time - DateTime.parse(time).to_time)
-			p timeAgo
-			# p timeAgo
-			if timeAgo / 86400 < 1
-				if timeAgo / 3600 < 1
+			if timeAgo / (60*60*24) < 1
+				if timeAgo / (60*60) < 1
 					if timeAgo / 60 < 1
 						return "#{timeAgo.to_i}s"
 					else
 						return "#{(timeAgo / 60).to_i}min"
 					end
 				else
-					return "#{(timeAgo / 3600).to_i}h"
+					return "#{(timeAgo / (60*60)).to_i}h"
 				end
 			else
-				return "#{(timeAgo / 86400).to_i}d"
+				return "#{(timeAgo / (60*60*24)).to_i}d"
 			end
 		end
 	end
@@ -156,5 +152,17 @@ class App < Sinatra::Base
 			end
 		end
 		redirect back
+	end
+
+	get '/post/new' do
+		# unless @user
+		# 	redirect '/login'
+		# end
+
+		slim :new_post
+	end
+
+	post '/post/new' do
+
 	end
 end

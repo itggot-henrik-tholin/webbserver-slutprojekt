@@ -4,6 +4,7 @@ body {
 	align-items: center;
 	margin: 0;
 	max-width: 100%;
+	overflow-x: hidden;
 }
 
 .flash {
@@ -48,23 +49,52 @@ body {
 	background-color: lightblue;
 }
 
-
 header {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	width: 100vw;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	justify-content: space-around;
-	width: calc(100vw - 15px);
+	position: fixed;
+	top: 0;
+	left: 0;
+	/* width: calc(100vw - 15px); */
+	width: 100vw;
 	max-width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
+	background-color: white;
+}
+
+.menu-link {
+	color: grey;
+	font-size: 1em;
+	font-weight: 600;
+	text-decoration: none;
+	background: none;
+	border: none;
+}
+
+.menu-link:hover {
+	cursor: pointer;
 }
 
 .posts {
 	width: 100vw;
 	box-sizing: border-box;
+	margin-top: 40px;
+	max-width: 100%;
 }
 
 .post {
+	display: block;
+	height: 100%;
 	color: white;
 	margin: 5px 0;
 	padding: 10px 15px;
@@ -85,4 +115,65 @@ header {
 	display: flex;
 	flex-direction: column;
 	font-size: 1.5em;
+	margin-bottom: 50%;
+	align-items: center;
+	margin-top: -50px;
 }
+
+.new-post {
+	display: block;
+	position: fixed;
+	left: calc(50vw - 30px);
+	bottom: 25px;
+	width: 40px;
+	height: 40px;
+	background-image: url('/img/new-post.svg');
+	background-size: 100%;
+	border: solid white 5px;
+	border-radius: 50%;
+	box-shadow: 0 0 1px grey;
+}
+
+.back-arrow {
+	display: block;
+	background-image: url('/img/back-arrow.svg');
+	background-size: 100%;
+	width: 20px;
+	height: 20px;
+	margin: 10px;
+}
+
+.arrow-up {
+	display: block;
+	background-image: url('/img/arrow-up.svg');
+	background-size: 100%;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	margin: 5px 0;
+}
+
+.arrow-down {
+	display: block;
+	background-image: url('/img/arrow-down.svg');
+	background-size: 100%;
+	width: 20px;
+	height: 20px;
+	margin: 5px 0;
+}
+
+.yodel-text {
+	width: 100vw;
+	height: calc(100vh - 42px);
+	padding: 10px;
+	box-sizing: border-box;
+	resize: none;
+	color: white;
+	background-color: #ff4d4d;
+	/* background-color: #ff3333; */
+	font-size: 1.5em;
+}
+
+/* .yodel-text::-moz-placeholder {
+	text-align: right;
+} */

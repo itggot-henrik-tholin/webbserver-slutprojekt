@@ -1,7 +1,7 @@
-header
-    a.navitem href="/channels" Channels
-    a.navitem href="/" id="city" CURRENT_CITY
-    a.navitem href="/me" = @karma
+nav
+    a.menu-link href="/channels" Channels
+    a.menu-link href="/" id="city" CURRENT_CITY
+    a.menu-link href="/me" = @karma
 
 div.posts
     -for post in @posts
@@ -12,6 +12,10 @@ div.posts
                 div.text
                     =post[1]
                 div.rating
+                    a.arrow-up href="/post/#{post[0]}/vote/up"
                     =post[4]
+                    a.arrow-down href="/post/#{post[0]}/vote/down"
             /div.options
                 p #{post[-1]} comments
+
+a.new-post href="/post/new" title="New post"
