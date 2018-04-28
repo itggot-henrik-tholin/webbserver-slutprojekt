@@ -47,12 +47,14 @@ function newServerAjaxCall(url, data, code) {
     }
 }
 
-function upvote(post) {
-    var votes = parseInt(document.getElementById(post).innerHTML);
-    document.getElementById(post).innerHTML = ++votes;
+function upvote(id) {
+    id = id.split("-")
+    var votes = parseInt(document.getElementById(`${id[0]}-${id[1]}`).innerHTML);
+    document.getElementById(`${id[0]}-${id[1]}`).innerHTML = ++votes;
 }
 
-function downvote(post) {
-    var votes = parseInt(document.getElementById(post).innerHTML);
-    document.getElementById(post).innerHTML = --votes;
+function downvote(id) {
+    id = id.split("-")
+    var votes = parseInt(document.getElementById(`${id[0]}-${id[1]}`).innerHTML);
+    document.getElementById(`${id[0]}-${id[1]}`).innerHTML = --votes;
 }

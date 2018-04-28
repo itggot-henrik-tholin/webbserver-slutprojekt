@@ -1,0 +1,37 @@
+div.background.red
+    header
+        a.back-arrow href="/"
+
+    div.posts
+        div class=("post #{@post[6]}")
+            div.info
+                p 
+                    b
+                        | OJ. 
+                    | #{time_ago_in_words(@post[3])}
+            div.content
+                div.text
+                    =@post[1]
+                div.rating
+                    a.arrow-up onclick="newServerAjaxCall('/post/#{@post[0]}/vote/up', null, 'upvote(\'post-#{@post[0]}\')')"
+                    span id="post-#{@post[0]}" =@post[4]
+                    a.arrow-down onclick="newServerAjaxCall('/post/#{@post[0]}/vote/down', null, 'downvote(\'post-#{@post[0]}\')')"
+        div.separator
+        -for comment in @comments
+            div class=("comment #{@post[6]}")
+                div.info
+                    p
+                        b
+                            | #{comment[4] == 0 ? "OJ" : comment[4]}. 
+                        | #{time_ago_in_words(comment[6])}
+                div.content
+                    div.text
+                        =comment[1]
+                    div.rating
+                        a.arrow-up onclick="newServerAjaxCall('/post/#{@post[0]}/comment/#{comment[0]}/vote/up', null, 'upvote(\'comment-#{comment[0]}\')')"
+                        span id="comment-#{comment[0]}" =comment[5]
+                        a.arrow-down onclick="newServerAjaxCall('/post/#{@post[0]}/comment/#{comment[0]}/vote/down', null, 'downvote(\'comment-#{comment[0]}\')')"
+
+        form.reply action="/post/#{@post[0]}/comment" method="post"
+            input type="text" name="comment" placeholder="Yodel back here..."
+            input.menu-link type="submit" value="Send"
