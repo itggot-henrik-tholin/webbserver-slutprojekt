@@ -1,5 +1,10 @@
+javascript:
+    navigator.geolocation.getCurrentPosition(setLocation);
+    //document.querySelector("#coords").value = `${coords.latitude},${navigator.geolocation.coords.longitude}`;
+
 form action="/post/new" method="post"
     header
         a.back-arrow href="/" title="Go back"
         input.menu-link type="submit" value="Send"
+    input type="hidden" name="coords" id="coords" value="0, 0"
     textarea.yodel-text type="text" name="text" placeholder="Send a yodel to everyone within 10km."

@@ -5,17 +5,17 @@ nav
 
 div.posts
     -for post in @posts
-        div class=("post #{@colors.sample}")
+        div class=("post #{post[6]}")
             div.info
                 p =time_ago_in_words(post[3])
             div.content
                 div.text
                     =post[1]
                 div.rating
-                    a.arrow-up href="/post/#{post[0]}/vote/up"
-                    =post[4]
-                    a.arrow-down href="/post/#{post[0]}/vote/down"
-            /div.options
-                p #{post[-1]} comments
+                    a.arrow-up onclick="newServerAjaxCall('/post/#{post[0]}/vote/up', null, 'upvote(\'post-#{post[0]}\')')"
+                    span id="post-#{post[0]}" =post[4]
+                    a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
+            div.options
+                span #{post[-1]} comments
 
 a.new-post href="/post/new" title="New post"

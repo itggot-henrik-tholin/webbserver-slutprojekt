@@ -3,6 +3,7 @@ class App < Sinatra::Base
 	register Sinatra::Flash
 	
 	db = SQLite3::Database.open('db/db.sqlite')
+	colors = ["orange", "green", "cyan", "red", "blue"]
 
 	helpers do
 		def display(file)
@@ -51,16 +52,15 @@ class App < Sinatra::Base
 		end
 
 		@title = "Yodel"
-		# @city = "Göteborg"
 		@karma = @user[4]
 
-		@colors = ["orange", "green", "cyan", "red", "yellow", "blue"]
 		@posts = db.execute("SELECT * FROM posts ORDER BY id DESC")
 
-		# for post in @posts
-		# 	comments = db.execute("SELECT COUNT(id) FROM comments WHERE post = ?", post.first).first
-		# 	@posts.push(comments)
-		# end
+		# comments = []
+		for post in @posts
+			comments = db.execute("SELECT COUNT(id) FROM comments WHERE post = ?", post.first).first.first
+			post.push(comments)
+		end
 
 		slim :index
 	end
@@ -155,14 +155,75 @@ class App < Sinatra::Base
 	end
 
 	get '/post/new' do
-		# unless @user
-		# 	redirect '/login'
-		# end
+		unless @user
+			redirect '/login'
+		end
 
 		slim :new_post
 	end
 
 	post '/post/new' do
+		unless @user
+			redirect '/login'
+		end
 
+		text = params['text']
+		coords = params['coords']
+
+		if text.empty?
+			flash[:error] = "Yodel cannot be empty."
+			redirect back
+		else
+			db.execute("INSERT INTO posts (text, owner, coords, color) VALUES (?, ?, ?, ?)", text, @user[1], coords, colors.sample)
+			redirect '/'
+		end
+	end
+
+	post '/post/:id/vote/up' do
+		unless @user
+			redirect '/login'
+		end
+
+		id = params['id']
+
+		voteCheck = db.execute("SELECT * FROM votes WHERE post = ? AND account = ?", id, @user[0]).first
+		unless voteCheck.nil?
+			flash[:error] = "You have already voted"
+			redirect back
+		end
+
+		post_owner = db.execute("SELECT owner FROM posts WHERE id = ?", id).first.first
+		unless post_owner == @user[1]
+			db.execute("INSERT INTO votes (post, account, vote) VALUES (?, ?, ?)", id, @user[0], 1)
+			db.execute("UPDATE posts SET votes = votes + 1 WHERE id = ?", id)
+			# adds 10 karma to post owner
+			db.execute("UPDATE accounts SET karma = karma + 10 WHERE username = ?", post_owner)
+			# 2 karma for each upvote
+			db.execute("UPDATE accounts SET karma = karma + 2 WHERE username = ?", @user[1])
+		end
+	end
+
+	post '/post/:id/vote/down' do
+		unless @user
+			redirect '/login'
+		end
+
+		id = params['id']
+
+		voteCheck = db.execute("SELECT * FROM votes WHERE post = ? AND account = ?", id, @user[0])
+		unless voteCheck.nil?
+			flash[:error] = "You have already voted"
+			redirect back
+		end
+
+		post_owner = db.execute("SELECT owner FROM posts WHERE id = ?", id).first.first
+		unless post_owner == @user[1]
+			db.execute("INSERT INTO votes (post, account, vote) VALUES (?, ?, ?)", id, @user[0], -1) unless 
+			db.execute("UPDATE posts SET votes = votes - 1 WHERE id = ?", id)
+			# removes 10 karma to post owner
+			db.execute("UPDATE accounts SET karma = karma - 10 WHERE username = ?", post_owner)
+			# -2 karma for each downvote
+			db.execute("UPDATE accounts SET karma = karma - 2 WHERE username = ?", @user[1])
+		end
 	end
 end
