@@ -17,7 +17,8 @@ div.posts
                     a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
             div.options
                 span #{post[-1]} comments
-div.end
-    p You have reached the end
+-unless @posts.empty?
+    div.end
+        p You have reached the end
 
 a.new-post href="/post/new" title="New post"

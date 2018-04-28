@@ -143,7 +143,7 @@ class App < Sinatra::Base
 			flash[:error] = "Username or password is invalid"
 		else
 			bcrypt_password = BCrypt::Password.new(user_info[1])
-			if (user_info[0].downcase == username.downcase) && (user_info[1] == bcrypt_password)
+			if (user_info[0].downcase == username.downcase) && (bcrypt_password == password)
 				session[:username] = username
 				redirect '/'
 			else
@@ -151,6 +151,11 @@ class App < Sinatra::Base
 			end
 		end
 		redirect back
+	end
+
+	get '/logout' do
+		session.destroy
+		redirect '/login'
 	end
 
 	get '/post/new' do

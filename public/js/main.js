@@ -24,7 +24,7 @@ $(document).ready(function() {
         document.querySelector("#coords").value = `${coords.latitude},${coords.longitude}`;
     }
 
-    getLocation();
+    // getLocation();
 });
 
 function newServerAjaxCall(url, data, code) {
