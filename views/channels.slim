@@ -1,0 +1,31 @@
+nav
+    a.menu-link href="/channels" Channels
+    a.menu-link href="/" id="city" CURRENT_CITY
+    a.menu-link href="/me" = @user[4]
+
+div.title
+    span CHANNELS
+    form action="/channel/new" method="post"
+        input type="text" name="name" placeholder="Channel name"
+        input.menu-link type="submit" value="Create"
+
+div.heading MY CHANNELS
+div.channels
+    -for channel in @user_channels
+        div.channel
+            div
+                a href="/channel/#{channel[0]}" @ #{channel[1]}
+            div.channel-members
+                span #{channel[-1]}
+                img.user src="/img/user.svg"
+                a.check href="/channel/#{channel[0]}/leave" title="Leave channel"
+div.heading ALL CHANNELS
+div.channels
+    -for channel in @channels
+        div.channel
+            div
+                a href="/channel/#{channel[0]}" @ #{channel[1]}
+            div.channel-members
+                span #{channel[-1]}
+                img.user src="/img/user.svg"
+                a.add href="/channel/#{channel[0]}/join" title="Join channel"

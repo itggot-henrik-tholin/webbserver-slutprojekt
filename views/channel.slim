@@ -1,17 +1,17 @@
-nav
-    a.menu-link href="/channels" Channels
-    a.menu-link href="/" id="city" CURRENT_CITY
-    a.menu-link href="/me" = @user[4]
-
+header
+    div.header-item
+        a.back-arrow href="/channels"
+        span = @channel[1]
+    div.header-item
+        -if @member
+            a.check href="/channel/#{@channel[0]}/leave" title="Leave channel"
+        -else
+            a.add href="/channel/#{@channel[0]}/join" title="Join channel"
 div.posts
     -@posts.each_with_index do |post, i|
         div class=("post #{post[6]}") onclick="window.location='/post/#{post[0]}';"
             div.info
-                p
-                    =time_ago_in_words(post[3])
-                    -unless @channel_posts[i].nil?
-                        b
-                            a href="/channel/#{@channel_posts[i][0]}"  &#8226; @#{@channel_posts[i][1]}
+                p =time_ago_in_words(post[3])
             div.content
                 div.text
                     =post[1]
@@ -24,5 +24,5 @@ div.posts
 -unless @posts.empty?
     div.end
         p You have reached the end
-
-a.new-post href="/post/new" title="New post"
+-if @member
+    a.new-post href="/post/new?channel=#{@channel[0]}" title="New post"

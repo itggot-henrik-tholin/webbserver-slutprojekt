@@ -6,5 +6,6 @@ form action="/post/new" method="post"
     header
         a.back-arrow href="/" title="Go back"
         input.menu-link type="submit" value="Send"
-    input type="hidden" name="coords" id="coords" value="0, 0"
+    input type="hidden" name="coords" id="coords" value="0,0"
+    input type="hidden" name="chan" value="#{params['channel']}"
     textarea.yodel-text type="text" name="text" placeholder="Send a yodel to everyone within 10km."
