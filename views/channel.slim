@@ -1,26 +1,27 @@
 header
     div.header-item
         a.back-arrow href="/channels"
-        span = @channel[1]
+        span @#{@channel[1]}
     div.header-item
         -if @member
             a.check href="/channel/#{@channel[0]}/leave" title="Leave channel"
         -else
             a.add href="/channel/#{@channel[0]}/join" title="Join channel"
-div.posts
+div.posts-feed
     -@posts.each_with_index do |post, i|
-        div class=("post #{post[6]}") onclick="window.location='/post/#{post[0]}';"
-            div.info
-                p =time_ago_in_words(post[3])
-            div.content
+        div class=("post #{post[6]}")
+            div.content onclick="window.location='/post/#{post[0]}';"
+                div.info
+                    span =time_ago_in_words(post[3])
                 div.text
-                    =post[1]
-                div.rating
-                    a.arrow-up onclick="newServerAjaxCall('/post/#{post[0]}/vote/up', null, 'upvote(\'post-#{post[0]}\')')"
-                    span id="post-#{post[0]}" =post[4]
-                    a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
-            div.options
-                span #{post[-1]} comments
+                    pre =post[1]
+                div.options
+                    span #{post[-1]} comments
+            div.rating
+                a.arrow-up onclick="newServerAjaxCall('/post/#{post[0]}/vote/up', null, 'upvote(\'post-#{post[0]}\')')"
+                span id="post-#{post[0]}" =post[4]
+                a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
+
 -unless @posts.empty?
     div.end
         p You have reached the end

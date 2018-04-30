@@ -3,24 +3,24 @@ nav
     a.menu-link href="/" id="city" CURRENT_CITY
     a.menu-link href="/me" = @user[4]
 
-div.posts
+div.posts-feed
     -@posts.each_with_index do |post, i|
-        div class=("post #{post[6]}") onclick="window.location='/post/#{post[0]}';"
-            div.info
-                p
-                    =time_ago_in_words(post[3])
-                    -unless @channel_posts[i].nil?
-                        b
-                            a href="/channel/#{@channel_posts[i][0]}"  &#8226; @#{@channel_posts[i][1]}
-            div.content
+        div class=("post #{post[6]}")
+            div.content onclick="window.location='/post/#{post[0]}';"
+                div.info
+                    span
+                        =time_ago_in_words(post[3])
+                        -unless @channel_posts[i].nil?
+                            b
+                                a href="/channel/#{@channel_posts[i][0]}"  &#8226; @#{@channel_posts[i][1]}
                 div.text
-                    =post[1]
-                div.rating
-                    a.arrow-up onclick="newServerAjaxCall('/post/#{post[0]}/vote/up', null, 'upvote(\'post-#{post[0]}\')')"
-                    span id="post-#{post[0]}" =post[4]
-                    a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
-            div.options
-                span #{post[-1]} comments
+                    pre =post[1]
+                div.options
+                    span #{post[-1]} comments
+            div.rating
+                a.arrow-up onclick="newServerAjaxCall('/post/#{post[0]}/vote/up', null, 'upvote(\'post-#{post[0]}\')')"
+                span id="post-#{post[0]}" =post[4]
+                a.arrow-down onclick="newServerAjaxCall('/post/#{post[0]}/vote/down', null, 'downvote(\'post-#{post[0]}\')')"
 -unless @posts.empty?
     div.end
         p You have reached the end

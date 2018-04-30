@@ -49,12 +49,24 @@ function newServerAjaxCall(url, data, code) {
 
 function upvote(id) {
     id = id.split("-")
-    var votes = parseInt(document.getElementById(`${id[0]}-${id[1]}`).innerHTML);
-    document.getElementById(`${id[0]}-${id[1]}`).innerHTML = ++votes;
+    var rating = document.getElementById(`${id[0]}-${id[1]}`);
+
+    var votes = parseInt(rating.innerHTML);
+    rating.innerHTML = ++votes;
+
+    var parent = rating.parentNode;
+    parent.childNodes[1].removeAttribute("onclick");
+    parent.childNodes[3].removeAttribute("onclick");
 }
 
 function downvote(id) {
     id = id.split("-")
-    var votes = parseInt(document.getElementById(`${id[0]}-${id[1]}`).innerHTML);
-    document.getElementById(`${id[0]}-${id[1]}`).innerHTML = --votes;
+    var rating = document.getElementById(`${id[0]}-${id[1]}`);
+    
+    var votes = parseInt(rating.innerHTML);
+    rating.innerHTML = --votes;
+
+    var parent = rating.parentNode;
+    parent.childNodes[1].removeAttribute("onclick");
+    parent.childNodes[3].removeAttribute("onclick");
 }

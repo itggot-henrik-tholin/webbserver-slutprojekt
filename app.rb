@@ -32,6 +32,10 @@ class App < Sinatra::Base
 		if session[:username]
 			@user = db.execute("SELECT * FROM accounts WHERE username = ?", session[:username]).first
 		end
+
+		unless @title
+			@title = "Yodel"
+		end
 	end
 	
 	get '/not_found' do
@@ -50,8 +54,6 @@ class App < Sinatra::Base
 		unless @user
 			redirect '/login'
 		end
-
-		@title = "Yodel"
 
 		user_channels = db.execute("SELECT channel FROM channel_membership WHERE account = ?", @user[0])
 		if user_channels.empty?
@@ -374,14 +376,6 @@ class App < Sinatra::Base
 		end
 
 		slim :channels
-	end
-
-	get '/channel/new' do
-		unless @user
-			redirect '/login'
-		end
-
-		slim :new_channel
 	end
 
 	post '/channel/new' do

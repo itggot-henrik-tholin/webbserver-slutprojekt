@@ -1,5 +1,7 @@
 * {
 	max-width: 100%;
+	font-family: sans-serif, serif, monospace;
+	/* font-family: Arial, 'Times New Roman', 'Courier New'; */
 }
 
 body {
@@ -7,7 +9,6 @@ body {
 	flex-direction: column;
 	align-items: center;
 	margin: 0;
-	/* max-width: 100%; */
 	/* overflow-x: hidden; */
 }
 
@@ -17,7 +18,7 @@ body {
 	border-radius: 7px;
 	align-items: center;
 	margin: 10px 0;
-	padding: 0 10px;
+	padding: 5px;
 	color: white;
 }
 
@@ -55,7 +56,6 @@ body {
 
 main {
 	margin: 0;
-	/* max-width: 100%; */
 }
 
 header {
@@ -79,7 +79,6 @@ nav {
 	left: 0;
 	/* width: calc(100vw - 15px); */
 	width: 100vw;
-	/* max-width: 100%; */
 	padding: 10px;
 	box-sizing: border-box;
 	background-color: white;
@@ -106,17 +105,22 @@ nav {
 	margin-top: -40px;
 }
 
-.posts, .channels {
+.posts, .posts-feed, .channels {
 	width: 100vw;
 	box-sizing: border-box;
 	margin: 40px 0;
-	/* max-width: 100%; */
 }
 
 .post, .comment {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	color: white;
 	margin: 5px 0;
 	padding: 10px 15px;
+}
+
+.posts-feed > .post > .content {
 	cursor: pointer;
 }
 
@@ -124,28 +128,29 @@ nav {
 	margin: 0;
 }
 
-.info > p > b > a, .title > form > input[type="submit"] {
+.info > span > b > a, .channels-title > form > input[type="submit"] {
 	text-decoration: none;
 	color: white;
 }
 
 .content {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	flex-direction: column;
+	width: 100%;
+	/* flex-direction: row;
+	justify-content: space-between; */
 }
 
-.text {
-	display: flex;
-	flex-direction: column;
+.info {
+	margin-top: 10px;
 }
 
 .rating {
 	display: flex;
 	flex-direction: column;
-	font-size: 1.5em;
+	justify-content: center;
 	align-items: center;
-	margin-top: -50px;
+	font-size: 1.5em;
 }
 
 .new-post {
@@ -236,7 +241,7 @@ nav {
 	padding-right: 20px;
 }
 
-.title {
+.channels-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -245,7 +250,7 @@ nav {
 	background-color: orange;
 	font-size: 1.2em;
 	font-weight: 600;
-	padding: 5px;
+	padding: 5px 0 5px 10px;
 	margin-top: 40px;
 	box-sizing: border-box;
 }
@@ -320,5 +325,4 @@ nav {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin: 0 10px;
 }
