@@ -24,7 +24,7 @@ $(document).ready(function() {
         document.querySelector("#coords").value = `${coords.latitude},${coords.longitude}`;
     }
 
-    // getLocation();
+    getLocation();
 });
 
 function newServerAjaxCall(url, data, code) {
@@ -62,7 +62,7 @@ function upvote(id) {
 function downvote(id) {
     id = id.split("-")
     var rating = document.getElementById(`${id[0]}-${id[1]}`);
-    
+
     var votes = parseInt(rating.innerHTML);
     rating.innerHTML = --votes;
 

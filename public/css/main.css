@@ -14,7 +14,6 @@ body {
 
 .flash {
 	display: flex;
-	/* height: 40px; */
 	border-radius: 7px;
 	align-items: center;
 	margin: 10px 0;
@@ -77,7 +76,6 @@ nav {
 	position: fixed;
 	top: 0;
 	left: 0;
-	/* width: calc(100vw - 15px); */
 	width: 100vw;
 	padding: 10px;
 	box-sizing: border-box;
@@ -137,8 +135,6 @@ nav {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	/* flex-direction: row;
-	justify-content: space-between; */
 }
 
 .info {
@@ -260,7 +256,6 @@ nav {
 	color: grey;
 	background-color: lightgrey;
 	padding: 10px;
-	/* margin-left: 20px; */
 	font-weight: 600;
 	box-sizing: border-box;
 }
@@ -325,4 +320,8 @@ nav {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+
+.header-item > .check {
+	margin: 0 10px;
 }

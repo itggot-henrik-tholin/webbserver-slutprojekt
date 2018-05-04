@@ -3,27 +3,29 @@ class App < Sinatra::Base
 	register Sinatra::Flash
 	
 	db = SQLite3::Database.open('db/db.sqlite')
-	colors = ["orange", "green", "cyan", "red", "blue"]
+	COLORS = ["orange", "green", "cyan", "red", "blue"]
 
 	helpers do
 		def display(file)
 			slim file
 		end
 
-		def time_ago_in_words(time)
-			timeAgo = (DateTime.now.to_time - DateTime.parse(time).to_time)
-			if timeAgo / (60*60*24) < 1
-				if timeAgo / (60*60) < 1
-					if timeAgo / 60 < 1
-						return "#{timeAgo.to_i}s"
+		module Utilities
+			def self.time_ago_in_words(time)
+				timeAgo = (DateTime.now.to_time - DateTime.parse(time).to_time)
+				if timeAgo / (60*60*24) < 1
+					if timeAgo / (60*60) < 1
+						if timeAgo / 60 < 1
+							return "#{timeAgo.to_i}s"
+						else
+							return "#{(timeAgo / 60).to_i}min"
+						end
 					else
-						return "#{(timeAgo / 60).to_i}min"
+						return "#{(timeAgo / (60*60)).to_i}h"
 					end
 				else
-					return "#{(timeAgo / (60*60)).to_i}h"
+					return "#{(timeAgo / (60*60*24)).to_i}d"
 				end
-			else
-				return "#{(timeAgo / (60*60*24)).to_i}d"
 			end
 		end
 	end
@@ -187,6 +189,8 @@ class App < Sinatra::Base
 			redirect '/login'
 		end
 
+		@title = "New post"
+
 		slim :new_post
 	end
 
@@ -203,10 +207,10 @@ class App < Sinatra::Base
 			flash[:error] = "Yodel cannot be empty."
 			redirect back
 		elsif !channel.empty?
-			db.execute("INSERT INTO posts (text, owner, coords, color, channel) VALUES (?, ?, ?, ?, ?)", text, @user[0], coords, colors.sample, channel)
+			db.execute("INSERT INTO posts (text, owner, coords, color, channel) VALUES (?, ?, ?, ?, ?)", text, @user[0], coords, COLORS.sample, channel)
 			redirect "/channel/#{channel}"
 		else
-			db.execute("INSERT INTO posts (text, owner, coords, color) VALUES (?, ?, ?, ?)", text, @user[0], coords, colors.sample)
+			db.execute("INSERT INTO posts (text, owner, coords, color) VALUES (?, ?, ?, ?)", text, @user[0], coords, COLORS.sample)
 			redirect '/'
 		end
 	end
@@ -354,6 +358,8 @@ class App < Sinatra::Base
 			redirect '/login'
 		end
 
+		@title = "Channels"
+
 		@channels = db.execute("SELECT * FROM channels")
 		for channel in @channels
 			member_count = db.execute("SELECT COUNT(id) FROM channel_membership WHERE channel = ?", channel[0]).first.first
@@ -401,6 +407,8 @@ class App < Sinatra::Base
 		end
 
 		@channel = db.execute("SELECT * FROM channels WHERE id = ?", id).first
+		@title = @channel[1]
+
 		memberCheck = db.execute("SELECT id FROM channel_membership WHERE channel = ? AND account = ?", id, @user[0]).first
 		@member = memberCheck.nil? ? false : true
 

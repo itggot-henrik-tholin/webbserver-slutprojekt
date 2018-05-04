@@ -1,0 +1,30 @@
+db // databasfiler
+-- db.sqlite
+misc // miscellaneous (projektplan)
+-- ER-diagram.png
+-- mappstruktur.txt
+public // tillgångar (assets) till front-end
+-- css
+---- main.css
+-- img
+---- add.svg
+---- arrow-down.svg
+---- arrow-up.svg
+---- back-arrow.svg
+---- check.svg
+---- new-post.svg
+---- user.svg
+-- js
+---- main.js
+views // front-end (slimfiler)
+-- channel.slim
+-- channels.slim
+-- denied.slim
+-- flash.slim
+-- index.slim
+-- layout.slim
+-- login.slim
+-- new_post.slim
+-- not_found.slim
+-- post.slim
+-- register.slim

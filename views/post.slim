@@ -8,7 +8,7 @@ div class=("background #{@post[6]}")
                 div.info
                     b
                         | OJ. 
-                    | #{time_ago_in_words(@post[3])}
+                    | #{Utilities.time_ago_in_words(@post[3])}
                 div.text
                     pre =@post[1]
             div.rating

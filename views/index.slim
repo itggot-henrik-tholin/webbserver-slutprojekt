@@ -1,7 +1,7 @@
 nav
     a.menu-link href="/channels" Channels
     a.menu-link href="/" id="city" CURRENT_CITY
-    a.menu-link href="/me" = @user[4]
+    a.menu-link href="#" title="My karma" = @user[4]
 
 div.posts-feed
     -@posts.each_with_index do |post, i|
@@ -9,7 +9,7 @@ div.posts-feed
             div.content onclick="window.location='/post/#{post[0]}';"
                 div.info
                     span
-                        =time_ago_in_words(post[3])
+                        =Utilities.time_ago_in_words(post[3])
                         -unless @channel_posts[i].nil?
                             b
                                 a href="/channel/#{@channel_posts[i][0]}"  &#8226; @#{@channel_posts[i][1]}

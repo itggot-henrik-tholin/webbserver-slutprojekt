@@ -1,6 +1,6 @@
 header
     div.header-item
-        a.back-arrow href="/channels"
+        a.back-arrow onclick="window.history.back();"
         span @#{@channel[1]}
     div.header-item
         -if @member
@@ -12,7 +12,7 @@ div.posts-feed
         div class=("post #{post[6]}")
             div.content onclick="window.location='/post/#{post[0]}';"
                 div.info
-                    span =time_ago_in_words(post[3])
+                    span =Utilities.time_ago_in_words(post[3])
                 div.text
                     pre =post[1]
                 div.options
